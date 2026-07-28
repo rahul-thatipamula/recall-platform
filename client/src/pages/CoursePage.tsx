@@ -1,12 +1,96 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { api, type Topic, type Concept, type DashboardRow, type Level, type SystemDesignScenario } from '../api';
+import { api, type Topic, type Level, type RoadmapStage, type SystemDesignScenario } from '../api';
 
-type Tab = 'learning' | 'testing';
-const LEVELS: Level[] = ['Beginner', 'Intermediate', 'Advanced'];
+export const LEVELS: Level[] = ['Beginner', 'Intermediate', 'Advanced'];
 
-function levelBadgeClass(level: Level) {
+export function levelBadgeClass(level: Level) {
   return `level-badge level-badge-${level.toLowerCase()}`;
+}
+
+const ROADMAP_Y_SPACING = 200;
+const ROADMAP_Y_PAD = 110;
+const ROADMAP_X_SWING = 27; // % from center
+
+function roadmapX(i: number) {
+  return 50 + ROADMAP_X_SWING * Math.sin((i * Math.PI) / 2);
+}
+
+function RoadmapPath({ topicKey, stages }: { topicKey: string; stages: RoadmapStage[] }) {
+  const pathRef = useRef<SVGPathElement>(null);
+  const [drawn, setDrawn] = useState(false);
+
+  const points = stages.map((_, i) => ({ x: roadmapX(i), y: ROADMAP_Y_PAD + i * ROADMAP_Y_SPACING }));
+  const height = ROADMAP_Y_PAD * 2 + Math.max(0, stages.length - 1) * ROADMAP_Y_SPACING;
+
+  let d = points.length ? `M ${points[0].x} ${points[0].y}` : '';
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i - 1];
+    const cur = points[i];
+    const dy = (cur.y - prev.y) / 2;
+    d += ` C ${prev.x} ${prev.y + dy}, ${cur.x} ${cur.y - dy}, ${cur.x} ${cur.y}`;
+  }
+
+  useLayoutEffect(() => {
+    setDrawn(false);
+    const raf = requestAnimationFrame(() => {
+      const el = pathRef.current;
+      if (el) {
+        const len = el.getTotalLength();
+        el.style.strokeDasharray = `${len}`;
+        el.style.strokeDashoffset = `${len}`;
+      }
+      requestAnimationFrame(() => setDrawn(true));
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [stages]);
+
+  return (
+    <div className="roadmap-map" style={{ height }}>
+      <svg className="roadmap-svg" viewBox={`0 0 100 ${height}`} preserveAspectRatio="none">
+        <path ref={pathRef} className={drawn ? 'roadmap-line drawn' : 'roadmap-line'} d={d} />
+      </svg>
+      {stages.map((stage, i) => {
+        const point = points[i];
+        const side = point.x >= 50 ? 'roadmap-node-right' : 'roadmap-node-left';
+        return (
+          <Link
+            key={stage.stage}
+            to={`/topic/${topicKey}/stage/${i}`}
+            className={`roadmap-node ${side}`}
+            style={{ left: `${point.x}%`, top: point.y, animationDelay: `${i * 110}ms` }}
+          >
+            <div className="roadmap-pin" style={{ animationDelay: `${i * 220}ms` }}>
+              {i + 1}
+            </div>
+            <div className="roadmap-card">
+              <strong>{stage.stage}</strong>
+              <p>{stage.description}</p>
+            </div>
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
+export function CourseHeader({ topic, showTestingLink = false }: { topic: Topic; showTestingLink?: boolean }) {
+  return (
+    <header className="course-header">
+      <div className="course-header-top">
+        <div>
+          <h1>{topic.title}</h1>
+          <p className="subtitle">{topic.description}</p>
+        </div>
+        {showTestingLink && (
+          <Link to={`/topic/${topic.key}/testing`} className="testing-link">
+            Testing
+          </Link>
+        )}
+      </div>
+      <RoadmapPath topicKey={topic.key} stages={topic.roadmap} />
+    </header>
+  );
 }
 
 export function CoursePage() {
@@ -24,116 +108,10 @@ export function CoursePage() {
   return topic.isWhiteboard ? <WhiteboardCourse topic={topic} /> : <StandardCourse topic={topic} />;
 }
 
-function CourseHeader({ topic }: { topic: Topic }) {
-  return (
-    <header className="course-header">
-      <h1>{topic.title}</h1>
-      <p className="subtitle">{topic.description}</p>
-      <div className="roadmap-map">
-        {topic.roadmap.map((stage, i) => (
-          <div key={stage.stage} className={`roadmap-node ${i % 2 === 0 ? 'roadmap-node-left' : 'roadmap-node-right'}`}>
-            <div className="roadmap-pin">{i + 1}</div>
-            <div className="roadmap-card">
-              <strong>{stage.stage}</strong>
-              <p>{stage.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </header>
-  );
-}
-
 function StandardCourse({ topic }: { topic: Topic }) {
-  const [tab, setTab] = useState<Tab>('learning');
-  const [level, setLevel] = useState<Level | 'All'>('All');
-  const [concepts, setConcepts] = useState<Concept[]>([]);
-  const [dashboard, setDashboard] = useState<DashboardRow[]>([]);
-
-  useEffect(() => {
-    api.getConcepts({ topic: topic.title, level: level === 'All' ? undefined : level }).then(setConcepts);
-  }, [topic.title, level]);
-
-  useEffect(() => {
-    api.getDashboard().then(setDashboard);
-  }, [topic.title]);
-
-  const dashboardByConcept = new Map(dashboard.map((row) => [row.conceptId, row]));
-
   return (
     <div className="page">
-      <CourseHeader topic={topic} />
-
-      <div className="tabs">
-        <button className={tab === 'learning' ? 'tab active' : 'tab'} onClick={() => setTab('learning')}>
-          Learning
-        </button>
-        <button className={tab === 'testing' ? 'tab active' : 'tab'} onClick={() => setTab('testing')}>
-          Testing
-        </button>
-      </div>
-
-      <div className="level-filter">
-        {(['All', ...LEVELS] as const).map((l) => (
-          <button key={l} className={level === l ? 'level-chip active' : 'level-chip'} onClick={() => setLevel(l)}>
-            {l}
-          </button>
-        ))}
-      </div>
-
-      {tab === 'learning' && (
-        <div className="concept-list">
-          <h2 className="learning-heading">Learning</h2>
-          {concepts.map((concept) => (
-            <article key={concept._id} className="tutorial-card">
-              <div className="tutorial-card-head">
-                <h3>{concept.title}</h3>
-                <span className={levelBadgeClass(concept.level)}>{concept.level}</span>
-              </div>
-              <p>{concept.tutorial}</p>
-              <Link to={`/topic/${topic.key}/assess/${concept._id}`}>Test yourself on this →</Link>
-            </article>
-          ))}
-        </div>
-      )}
-
-      {tab === 'testing' && (
-        <table>
-          <thead>
-            <tr>
-              <th>Concept</th>
-              <th>Level</th>
-              <th>Attempts</th>
-              <th>Recognition</th>
-              <th>Recall</th>
-              <th>Gap</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {concepts.map((concept) => {
-              const row = dashboardByConcept.get(concept._id);
-              return (
-                <tr key={concept._id}>
-                  <td>{concept.title}</td>
-                  <td><span className={levelBadgeClass(concept.level)}>{concept.level}</span></td>
-                  <td>{row?.attemptsCount ?? 0}</td>
-                  <td>{row?.recognitionRate == null ? '—' : `${row.recognitionRate}%`}</td>
-                  <td>{row?.avgRecallScore == null ? '—' : `${row.avgRecallScore}%`}</td>
-                  <td className={row?.gap != null && row.gap > 30 ? 'gap-warning' : ''}>
-                    {row?.gap == null ? '—' : `${row.gap}pt`}
-                  </td>
-                  <td>
-                    <Link to={`/topic/${topic.key}/assess/${concept._id}`}>
-                      {row?.attemptsCount ? 'Retry' : 'Start'}
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      )}
+      <CourseHeader topic={topic} showTestingLink />
     </div>
   );
 }
