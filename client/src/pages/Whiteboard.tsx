@@ -135,28 +135,36 @@ export function Whiteboard() {
   if (!scenario || !topicKey) return <p>Loading…</p>;
 
   return (
-    <div className="whiteboard-page">
-      <div className="whiteboard-header">
-        <div>
-          <Link to={`/topic/${topicKey}`}>← Back to scenarios</Link>
-          <div className="whiteboard-title-row">
-            <h1>{scenario.title}</h1>
-            <span className="save-status">
-              {saveStatus === 'saving' && 'Saving…'}
-              {saveStatus === 'saved' && 'Saved automatically'}
-            </span>
-          </div>
-          <p className="subtitle">{scenario.prompt}</p>
+    <div className="whiteboard-split">
+      <aside className="whiteboard-problem">
+        <Link to={`/topic/${topicKey}`}>← Back to scenarios</Link>
+        <div className="whiteboard-title-row">
+          <h1>{scenario.title}</h1>
+          <span className="level-badge">{scenario.level}</span>
         </div>
-        <div className="whiteboard-actions">
-          <button className="evaluate-button" disabled={evaluating} onClick={handleEvaluate}>
-            {evaluating ? 'Evaluating…' : 'Evaluate (temporary)'}
-          </button>
-        </div>
-      </div>
+        <span className="save-status">
+          {saveStatus === 'saving' && 'Saving…'}
+          {saveStatus === 'saved' && 'Saved automatically'}
+        </span>
+        <p>{scenario.prompt}</p>
 
-      <div className="whiteboard-body">
-        <aside className="component-palette">
+        <button className="evaluate-button" disabled={evaluating} onClick={handleEvaluate}>
+          {evaluating ? 'Evaluating…' : 'Evaluate (temporary)'}
+        </button>
+
+        {result && (
+          <div className="eval-panel">
+            <div className="score-row">
+              <div>
+                <span className="score-label">Coverage score</span>
+                <span className="score-value">{result.score}%</span>
+              </div>
+            </div>
+            <p className="feedback">{result.feedback}</p>
+          </div>
+        )}
+
+        <div className="component-palette">
           <h3>Components</h3>
           <p className="palette-hint">Click to drop a labeled box, then wire connections with the arrow tool.</p>
           {COMPONENT_PALETTE.map((label) => (
@@ -167,24 +175,12 @@ export function Whiteboard() {
           <button className="template-button" onClick={insertStarterArchitecture}>
             Insert connected starter layout
           </button>
-        </aside>
-
-        <div className="tldraw-container">
-          <Tldraw onMount={handleMount} />
         </div>
+      </aside>
+
+      <div className="tldraw-container">
+        <Tldraw onMount={handleMount} />
       </div>
-
-      {result && (
-        <div className="eval-panel">
-          <div className="score-row">
-            <div>
-              <span className="score-label">Coverage score</span>
-              <span className="score-value">{result.score}%</span>
-            </div>
-          </div>
-          <p className="feedback">{result.feedback}</p>
-        </div>
-      )}
     </div>
   );
 }
