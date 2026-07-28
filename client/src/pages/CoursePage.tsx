@@ -29,17 +29,17 @@ function CourseHeader({ topic }: { topic: Topic }) {
     <header className="course-header">
       <h1>{topic.title}</h1>
       <p className="subtitle">{topic.description}</p>
-      <ol className="roadmap">
+      <div className="roadmap-map">
         {topic.roadmap.map((stage, i) => (
-          <li key={stage.stage}>
-            <span className="roadmap-index">{i + 1}</span>
-            <div>
+          <div key={stage.stage} className={`roadmap-node ${i % 2 === 0 ? 'roadmap-node-left' : 'roadmap-node-right'}`}>
+            <div className="roadmap-pin">{i + 1}</div>
+            <div className="roadmap-card">
               <strong>{stage.stage}</strong>
               <p>{stage.description}</p>
             </div>
-          </li>
+          </div>
         ))}
-      </ol>
+      </div>
     </header>
   );
 }
@@ -83,6 +83,7 @@ function StandardCourse({ topic }: { topic: Topic }) {
 
       {tab === 'learning' && (
         <div className="concept-list">
+          <h2 className="learning-heading">Learning</h2>
           {concepts.map((concept) => (
             <article key={concept._id} className="tutorial-card">
               <div className="tutorial-card-head">

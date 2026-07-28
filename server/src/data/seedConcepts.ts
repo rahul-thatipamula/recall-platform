@@ -3,7 +3,862 @@ import { ConceptDoc } from '../models/Concept';
 type SeedConcept = Omit<ConceptDoc, '_id'>;
 
 export const seedConcepts: SeedConcept[] = [
-  // ---------- Java ----------
+  // ---------- HTML ----------
+  {
+    topic: 'HTML',
+    level: 'Beginner',
+    title: 'HTML Page Structure & Metadata',
+    tutorial:
+      'Every HTML5 page consists of two primary sections: <head> and <body>. The <head> contains document metadata such as character encoding (<meta charset="utf-8">), page title (<title>), scripts, and external CSS links. The <body> contains the visible web page content. The document begins with <!doctype html> to specify the HTML5 standard. Comments are written as <!-- comment -->.',
+    recognition: {
+      prompt: 'Which part of an HTML document is strictly used to specify metadata, scripts, and CSS references?',
+      options: [
+        'The <body> section',
+        'The <head> section',
+        'The <footer> tag',
+        'The <!doctype> declaration',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain the boilerplate structure of an HTML5 document, detailing the distinct roles of the <!doctype html>, <head>, and <body> tags.',
+    rubricKeywords: ['doctype', 'head', 'body', 'metadata', 'title', 'meta charset', 'boilerplate'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Beginner',
+    title: 'Headings, Paragraphs & Semantic Emphasis',
+    tutorial:
+      'HTML supports six heading levels <h1> to <h6> for document hierarchy. Paragraphs are defined with <p>, which automatically create block-level breaks. For styling text, modern semantic HTML recommends <strong> for strong importance (rendered bold) and <em> for structural emphasis (rendered italic), replacing legacy presentation-only tags <b> and <i>.',
+    recognition: {
+      prompt: 'Which semantic HTML tag should be used to give strong structural importance to text?',
+      options: ['<b>', '<strong>', '<i>', '<bold>'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain why modern HTML prefers <strong> and <em> over legacy <b> and <i> tags, and describe how <p> handles block text.',
+    rubricKeywords: ['h1', 'paragraph', 'p tag', 'strong', 'em', 'semantic', 'legacy', 'b tag', 'i tag'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Beginner',
+    title: 'Ordered, Unordered & Nested Lists',
+    tutorial:
+      'HTML provides <ol> for numbered ordered lists and <ul> for bulleted unordered lists, with individual items defined inside <li> tags. Lists can be nested inside each other to form hierarchical structures (e.g. an unordered list placed inside an ordered list item).',
+    recognition: {
+      prompt: 'Which tag combination correctly creates a bulleted list in HTML?',
+      options: ['<ol> with <li>', '<ul> with <li>', '<list> with <item>', '<dl> with <dd>'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Describe how to construct an ordered list containing a nested unordered list, specifying the parent and child tags required.',
+    rubricKeywords: ['ol', 'ul', 'li', 'ordered', 'unordered', 'nested', 'bullet', 'numbers'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Intermediate',
+    title: 'Block vs Inline Containers (Div & Span)',
+    tutorial:
+      '<div> is a block-level element that takes up the full width available and starts on a new line, used for grouping major structural blocks. <span> is an inline element that wraps around small inline content without forcing a new line break. Both tags are primarily used alongside CSS classes for styling.',
+    recognition: {
+      prompt: 'What is the key difference between a <div> tag and a <span> tag?',
+      options: [
+        '<div> is inline and <span> is block-level',
+        '<div> is a block-level container and <span> is an inline container',
+        '<div> only works with JavaScript while <span> works with CSS',
+        'There is no functional difference',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain the line-break and layout differences between <div> and <span>, giving a practical use case for each.',
+    rubricKeywords: ['block level', 'inline', 'div', 'span', 'line break', 'full width', 'grouping', 'css'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Intermediate',
+    title: 'Attributes, Images & Hyperlinks',
+    tutorial:
+      'Attributes supply extra metadata to HTML tags. The <img> tag is a self-closing element that requires a `src` attribute (file/URL location) and an `alt` attribute for fallback text. The anchor tag <a> creates hyperlinks using the `href` attribute to navigate to internal pages or external URLs.',
+    recognition: {
+      prompt: 'What is the purpose of the `alt` attribute in an <img> tag?',
+      options: [
+        'To specify the visual alignment of the image',
+        'To provide alternative text if the image fails to load or for accessibility',
+        'To set the absolute path of the image source file',
+        'To make the image automatically responsive',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Write out and explain the HTML code for displaying an image with fallback text and a hyperlink pointing to an external website.',
+    rubricKeywords: ['img tag', 'src', 'alt', 'anchor tag', 'href', 'self closing', 'hyperlink', 'attribute'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Intermediate',
+    title: 'HTML Tables & Data Grid Structure',
+    tutorial:
+      'Tabular data is structured using <table>. <thead> defines the header section containing <th> (table header cells), while <tr> defines table rows and <td> defines standard data cells. Optional attributes like `border="1"` draw visual grid lines around table cells.',
+    recognition: {
+      prompt: 'Which HTML tag defines a table header cell?',
+      options: ['<td>', '<tr>', '<th>', '<head>'],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Walk through how to build a complete 2-row HTML table with header columns for Name, Email, and Role.',
+    rubricKeywords: ['table', 'thead', 'tr', 'th', 'td', 'row', 'column', 'header cell', 'data cell'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Advanced',
+    title: 'Forms, Input Types & Label Accessibility',
+    tutorial:
+      '<form action="..." method="..."> wraps user input controls. The <input> tag supports types such as `text`, `email`, `password`, `checkbox`, `radio`, and `submit`. `placeholder` displays temporary guide text inside the input. Using <label for="input_id"> binds readable text to the target control, enabling click focus and accessibility.',
+    recognition: {
+      prompt: 'How does an HTML <label> tag explicitly connect to an <input> element?',
+      options: [
+        'By matching the label`s `for` attribute with the input`s `id` attribute',
+        'By putting the label tag inside the input tag',
+        'By matching the label`s `name` attribute with the input`s `value` attribute',
+        'By placing them on the same line in code',
+      ],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Explain how <form>, <input>, and <label> work together, including input types (radio vs checkbox) and why <label for="..."> is critical for UX.',
+    rubricKeywords: ['form', 'input', 'label', 'for attribute', 'id', 'placeholder', 'radio', 'checkbox', 'submit'],
+  },
+  {
+    topic: 'HTML',
+    level: 'Advanced',
+    title: 'Dropdowns, Textarea & HTML5 Validations',
+    tutorial:
+      '<select> with nested <option> tags creates single or multi-select dropdown menus. <textarea rows="8" cols="80"> creates multi-line text fields. HTML5 natively enforces validation via attributes like `required`, automatic email formatting checks, and custom regular expression patterns using `pattern=".{5,10}"`.',
+    recognition: {
+      prompt: 'Which HTML attribute enforces that an input must be filled out before submitting a form?',
+      options: ['validate', 'required', 'pattern', 'mandatory'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Describe how to build a form containing a dropdown selection, a multi-line feedback box, and native regex pattern validation.',
+    rubricKeywords: ['select', 'option', 'textarea', 'dropdown', 'required', 'pattern', 'regex', 'validation'],
+  },
+
+  // ---------- CSS ----------
+  {
+    topic: 'CSS',
+    level: 'Beginner',
+    title: 'CSS Inclusion Methods & Comments',
+    tutorial:
+      'CSS can be included in 3 ways: Inline (`style="..."`), Internal (`<style>` in `<head>`), or External (<link rel="stylesheet" href="...">). External stylesheets promote modularity and code reusability across multiple HTML pages. CSS comments are written using `/* comment */`.',
+    recognition: {
+      prompt: 'Which CSS inclusion method is best practice for maintaining scalable multi-page web applications?',
+      options: ['Inline styles', 'Internal <style> tags', 'External CSS file via <link> tag', 'HTML attributes'],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Compare inline, internal, and external CSS, explaining why external stylesheets are the industry standard for maintainability.',
+    rubricKeywords: ['inline', 'internal', 'external', 'link tag', 'stylesheet', 'reusability', 'style tag', 'comments'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Beginner',
+    title: 'Element, ID & Class Selectors',
+    tutorial:
+      'CSS rules target HTML elements. Element selectors target all instances of a tag (`p { color: blue; }`). ID selectors target a single unique element using a hash prefix (`#special { ... }`). Class selectors target any number of elements sharing a class name using a dot prefix (`.highlight { ... }`).',
+    recognition: {
+      prompt: 'Which CSS selector correctly targets an HTML element with `id="main-title"`?',
+      options: ['.main-title', '#main-title', 'main-title', '*main-title'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain how to write element, ID (`#`), and class (`.`) selectors in CSS, including when to use an ID versus a Class.',
+    rubricKeywords: ['element selector', 'id selector', 'class selector', 'hash', 'dot', 'unique', 'reusable', 'syntax'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Intermediate',
+    title: 'Advanced CSS Selectors & Combinators',
+    tutorial:
+      'Advanced selectors allow precise element targeting: Universal (`*`), Descendant (`li a` targets <a> inside <li>), Adjacent Sibling (`div + p` targets <p> directly after <div>), Attribute (`input[type="password"]`), and Pseudo-classes like `:nth-of-type(n)`, `:hover`, `:visited`, and `:checked`.',
+    recognition: {
+      prompt: 'What does the CSS selector `div + p` select?',
+      options: [
+        'All <p> tags nested inside a <div>',
+        'Any <p> tag that directly follows a <div> element',
+        'All <div> and <p> tags on the page',
+        'The first <p> child inside a <div>',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain the behavior of descendant (`A B`), adjacent sibling (`A + B`), attribute (`[attr=val]`), and `:nth-of-type()` selectors in CSS.',
+    rubricKeywords: ['universal', 'descendant', 'adjacent sibling', 'attribute selector', 'nth-of-type', 'pseudo class', 'hover', 'combinator'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Intermediate',
+    title: 'CSS Specificity & Inheritance',
+    tutorial:
+      'Styles defined on parent elements automatically inherit down to children (e.g. `color` or `font-family` on `body`). When multiple CSS rules conflict on the same element, CSS Specificity determines precedence: Inline style (1000) > ID selector (100) > Class/Attribute/Pseudo-class (10) > Element selector (1).',
+    recognition: {
+      prompt: 'If an element has styles applied via an ID selector, a Class selector, and an Element selector, which rule takes precedence?',
+      options: [
+        'Element selector',
+        'Class selector',
+        'ID selector',
+        'Whichever was defined first in the stylesheet',
+      ],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Describe how CSS specificity rules resolve conflicts when an element matches an ID selector, a Class selector, and an Element selector.',
+    rubricKeywords: ['inheritance', 'specificity', 'cascade', 'precedence', 'override', 'inline style', 'id selector', 'class selector', 'element selector'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Intermediate',
+    title: 'Color Formats & Background Styling',
+    tutorial:
+      'Colors in CSS can be specified using Hex codes (`#3b82f6`), RGB (`rgb(59, 130, 246)`), or RGBA (`rgba(59, 130, 246, 0.5)`) where the 4th parameter controls alpha transparency (0.0 transparent to 1.0 opaque). Backgrounds are styled using `background-color`, `background-image: url(...)`, `background-repeat: no-repeat`, and `background-size: cover`.',
+    recognition: {
+      prompt: 'What does the 4th value in `rgba(0, 0, 0, 0.5)` represent?',
+      options: [
+        'Red intensity',
+        'Green intensity',
+        'Blue intensity',
+        'Alpha channel transparency (0.0 to 1.0)',
+      ],
+      correctIndex: 3,
+    },
+    recallPrompt:
+      'Explain the difference between RGB and RGBA color formats, and describe how `background-repeat` and `background-size` control background image presentation.',
+    rubricKeywords: ['hex code', 'rgb', 'rgba', 'alpha transparency', 'background-color', 'background-image', 'background-repeat', 'background-size'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Advanced',
+    title: 'The CSS Box Model',
+    tutorial:
+      'Every rendered HTML element is a rectangular box composed of four concentric layers: Content Edge (width/height), Padding Edge (inner space between content and border), Border Edge (the outer boundary stroke), and Margin Edge (outer clearance separating adjacent elements). Padding adds space inside the border; margin adds space outside.',
+    recognition: {
+      prompt: 'Which layer of the CSS Box Model creates space outside the element border to push away neighboring elements?',
+      options: ['Content', 'Padding', 'Border', 'Margin'],
+      correctIndex: 3,
+    },
+    recallPrompt:
+      'Diagram or list the four concentric layers of the CSS Box Model from innermost to outermost, explaining how padding differs from margin.',
+    rubricKeywords: ['box model', 'content', 'padding', 'border', 'margin', 'inner space', 'outer space', 'concentric'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Intermediate',
+    title: 'Borders & Border Shorthand',
+    tutorial:
+      'Borders can be set via individual properties (`border-color`, `border-width`, `border-style`: `solid`, `dashed`, `dotted`, `groove`, `double`) or concise shorthand: `border: 5px solid red;`. Individual sides can also be targeted separately (e.g. `border-bottom: 2px solid blue;`).',
+    recognition: {
+      prompt: 'Which CSS declaration uses valid shorthand syntax to create a 3px solid red border?',
+      options: [
+        'border: 3px solid red;',
+        'border-style: 3px red solid;',
+        'border-box: red 3px solid;',
+        'border: solid(3px, red);',
+      ],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Write out the CSS shorthand syntax for creating a border and list four valid `border-style` keyword values.',
+    rubricKeywords: ['border', 'border-width', 'border-style', 'border-color', 'shorthand', 'solid', 'dashed', 'dotted', 'groove'],
+  },
+  {
+    topic: 'CSS',
+    level: 'Advanced',
+    title: 'Typography, Sizing & Web Fonts',
+    tutorial:
+      'CSS typography is controlled via `font-family` (font stacks with fallbacks), `font-size` (`px` absolute vs `em` relative units where 2em = double parent size), `font-weight` (100-900 / bold), `line-height` (vertical line spacing), `text-align` (left/center/right/justify), `text-decoration` (underline/line-through), and custom web fonts imported from Google Fonts.',
+    recognition: {
+      prompt: 'If an element`s parent has a font-size of 16px, what size is `1.5em` on the child element?',
+      options: ['1.5px', '16.5px', '24px', '32px'],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Explain how `em` font sizing works relative to parent font size, and detail how to import and use a custom font from Google Fonts in CSS.',
+    rubricKeywords: ['font-family', 'font-size', 'em unit', 'font-weight', 'line-height', 'text-align', 'google fonts', 'text-decoration'],
+  },
+
+  // ---------- Bootstrap ----------
+  {
+    topic: 'Bootstrap',
+    level: 'Beginner',
+    title: 'Bootstrap Setup & Containers',
+    tutorial:
+      'Bootstrap is a popular front-end framework providing pre-styled CSS components and JavaScript utilities. It can be linked via CDN (<link rel="stylesheet" href="...">) or downloaded locally. Content is wrapped inside `.container` (fixed responsive width with auto margins) or `.container-fluid` (100% full-width span across viewport).',
+    recognition: {
+      prompt: 'Which Bootstrap container class spans 100% of the viewport width across all screen sizes?',
+      options: ['.container', '.container-fluid', '.container-full', '.box-container'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain how to connect Bootstrap to an HTML page via CDN, and compare `.container` versus `.container-fluid`.',
+    rubricKeywords: ['bootstrap', 'cdn', 'container', 'container-fluid', 'viewport', 'full width', 'fixed width'],
+  },
+  {
+    topic: 'Bootstrap',
+    level: 'Intermediate',
+    title: 'Button Classes & States',
+    tutorial:
+      'Bootstrap styles `<a>`, `<button>`, and `<input>` elements using `.btn` along with contextual classes like `.btn-success`, `.btn-primary`, `.btn-danger`, etc. Button sizes are adjusted with `.btn-lg` or `.btn-sm`, while state classes like `.active` and attribute `disabled="disabled"` control interactivity.',
+    recognition: {
+      prompt: 'Which combination of classes creates a large green success button in Bootstrap?',
+      options: ['class="btn-green btn-large"', 'class="btn btn-success btn-lg"', 'class="button button-success lg"', 'class="btn-primary large"'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Write out the HTML markup for a Bootstrap large success button in both active and disabled states.',
+    rubricKeywords: ['btn', 'btn-success', 'btn-lg', 'active', 'disabled', 'btn-primary', 'button'],
+  },
+  {
+    topic: 'Bootstrap',
+    level: 'Intermediate',
+    title: 'Form Group & Form Control',
+    tutorial:
+      'Bootstrap form layout relies on `.form-group` to provide vertical spacing between form fields, and `.form-control` to make `<input>`, `<textarea>`, and `<select>` elements full-width (100%), rounded, and styled with smooth focus borders. `.form-inline` arranges form controls side-by-side.',
+    recognition: {
+      prompt: 'What effect does applying the `.form-control` class have on an HTML <input> tag in Bootstrap?',
+      options: [
+        'It centers the text inside the input',
+        'It makes the element width 100% and applies standard Bootstrap field styling',
+        'It converts the text input into a submit button',
+        'It disables the input field',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Describe the purpose of `.form-group` and `.form-control` in Bootstrap form development.',
+    rubricKeywords: ['form-group', 'form-control', 'form-inline', 'spacing', 'full width', '100%', 'input styling'],
+  },
+  {
+    topic: 'Bootstrap',
+    level: 'Advanced',
+    title: 'Navbar Structure & Responsive Collapse',
+    tutorial:
+      'Navbars use `<nav class="navbar navbar-default">`. `.navbar-header` holds the brand link (`.navbar-brand`) and hamburger toggle button (`.navbar-toggle collapsed`). Nav items are organized in `<ul>` with `.nav .navbar-nav` (and `.navbar-right`). Collapsible sections are wrapped in `<div class="collapse navbar-collapse" id="...">` triggered via `data-toggle="collapse"`. Fixed navbars use `.navbar-fixed-top` and `.navbar-inverse` for dark styling.',
+    recognition: {
+      prompt: 'Which data attributes are required on a navbar hamburger button to trigger responsive menu collapse in Bootstrap?',
+      options: [
+        'data-toggle="collapse" and data-target="#menu-id"',
+        'data-show="navbar" and data-bind="#menu-id"',
+        'data-trigger="click" and data-menu="slide"',
+        'data-open="true" and data-nav="mobile"',
+      ],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Explain how a responsive Bootstrap navbar handles brand placement, link alignment, and mobile hamburger menu collapsing.',
+    rubricKeywords: ['navbar', 'navbar-brand', 'navbar-toggle', 'collapse navbar-collapse', 'data-toggle', 'navbar-fixed-top', 'navbar-inverse'],
+  },
+  {
+    topic: 'Bootstrap',
+    level: 'Advanced',
+    title: '12-Column Grid System & Screen Tiers',
+    tutorial:
+      'Bootstrap divides layout into a 12-column grid system inside `.row`. Columns use `.col-{tier}-{size}` syntax (e.g. `.col-lg-3`, `.col-md-4`, `.col-sm-6`, `.col-xs-12`). Tiers target screen widths: `lg` (large desktops), `md` (laptops), `sm` (tablets), `xs` (mobile phones), and `xl` (extra-large screens in v4). Column numbers per row must sum to 12.',
+    recognition: {
+      prompt: 'In a Bootstrap 12-column grid, how many columns will a div with class `.col-md-4` occupy per row?',
+      options: ['4 out of 12 columns (3 elements per row)', '3 out of 12 columns (4 elements per row)', '6 out of 12 columns (2 elements per row)', '12 out of 12 columns (full width)'],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Explain how the 12-column grid system works, detailing column math, screen size tiers (lg, md, sm, xs), and responsive wrapping.',
+    rubricKeywords: ['grid system', '12 columns', 'row', 'col-lg', 'col-md', 'col-sm', 'col-xs', 'responsive'],
+  },
+  {
+    topic: 'Bootstrap',
+    level: 'Intermediate',
+    title: 'Nested Grids & Icon Integration',
+    tutorial:
+      'Grids can be nested by creating a new `<div class="row">` inside an existing grid column (`.col-*`). Bootstrap 3 includes Glyphicons (<span class="glyphicon glyphicon-camera"></span>), and supports FontAwesome icons (<i class="fas fa-camera"></i>) imported via CDN.',
+    recognition: {
+      prompt: 'How do you create a nested grid inside an existing Bootstrap column?',
+      options: [
+        'Place a new <div class="row"> inside the column element',
+        'Add class="nested-grid" to the existing column',
+        'Create a <grid> tag inside <col>',
+        'Bootstrap does not support grid nesting',
+      ],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Explain how to construct a nested grid in Bootstrap and how to integrate FontAwesome or Glyphicon icons.',
+    rubricKeywords: ['nested grid', 'row', 'column', 'glyphicon', 'fontawesome', 'fa-camera'],
+  },
+
+  // ---------- JavaScript ----------
+  {
+    topic: 'JavaScript',
+    level: 'Beginner',
+    title: 'Developer Console & 5 Primitive Data Types',
+    tutorial:
+      'JavaScript defines 5 core primitive data types: Number (both integer and float), String (text in quotes), Boolean (`true`/`false`), `null` (intentional absence of value), and `undefined` (uninitialized variable). Type checking is performed using `typeof x`. Developer tools console (Inspect -> Console) is used for instant code execution.',
+    recognition: {
+      prompt: 'What does `typeof undefined` return in JavaScript?',
+      options: ['"object"', '"undefined"', '"null"', '"number"'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'List the 5 primitive data types in JavaScript, explaining `null` versus `undefined` and how `typeof` is used.',
+    rubricKeywords: ['number', 'string', 'boolean', 'null', 'undefined', 'typeof', 'primitive', 'console'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Beginner',
+    title: 'Variable Declarations & Dynamic Typing',
+    tutorial:
+      'Variables store data values using `var` (or `let`/`const`). JavaScript is dynamically typed — a variable can hold a number and later be reassigned a string or boolean without explicit type declarations. Variable names typically follow CamelCase (`studentMobileNumber`), SnakeCase (`student_mobile_number`), or KebabCase (`student-mobile-number`).',
+    recognition: {
+      prompt: 'Why is JavaScript classified as a dynamically typed language?',
+      options: [
+        'Variables require static type definitions at compile time',
+        'Variables do not require explicit type definitions and can change data types at runtime',
+        'All variables are converted to strings automatically',
+        'It only supports numeric data types',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain dynamic typing in JavaScript with code examples showing variable declaration, reassignment, and naming conventions.',
+    rubricKeywords: ['var', 'dynamic typing', 'reassignment', 'camelCase', 'snake_case', 'kebab-case', 'variable'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Beginner',
+    title: 'Core Built-In Functions: alert, console.log & prompt',
+    tutorial:
+      'JavaScript provides 3 primary built-in interaction functions: `alert("msg")` displays pop-up notifications to users; `console.log("msg")` prints developer debug output to the browser console; `prompt("Enter value:")` prompts users for text input, returning the string entered (or `null` if cancelled).',
+    recognition: {
+      prompt: 'Which built-in JavaScript function displays a pop-up dialog that captures user text input?',
+      options: ['alert()', 'console.log()', 'prompt()', 'input()'],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Compare `alert()`, `console.log()`, and `prompt()`, explaining their parameters, return values, and primary use cases.',
+    rubricKeywords: ['alert', 'console.log', 'prompt', 'pop up', 'debug console', 'user input', 'return value'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'Equality Operators: == vs === & Type Coercion',
+    tutorial:
+      'The abstract equality operator `==` performs implicit type coercion (converting operands to a common type before comparing, e.g. `10 == "10"` is `true`). The strict equality operator `===` compares both value AND type without coercion (`10 === "10"` is `false`). Strict equality is strongly recommended to prevent unexpected bugs.',
+    recognition: {
+      prompt: 'What is the result of `10 === "10"` in JavaScript?',
+      options: ['true', 'false', 'undefined', 'TypeError'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain implicit type coercion and why `===` (strict equality) is preferred over `==` (abstract equality) in JavaScript.',
+    rubricKeywords: ['==', '===', 'type coercion', 'strict equality', 'abstract equality', 'comparison', 'value and type'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'Logical Operators, NaN & Falsy Rules',
+    tutorial:
+      'Logical operators evaluate boolean conditions: `&&` (AND), `||` (OR), and `!` (NOT). In JS, `0`, `""` (empty string), `null`, `undefined`, and `NaN` (Not a Number, result of invalid math like `0/0`) are all falsy values; all other values are truthy. Note: `NaN == NaN` evaluates to `false`.',
+    recognition: {
+      prompt: 'What is the result of `NaN == NaN` in JavaScript?',
+      options: ['true', 'false', 'undefined', 'NaN'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'List the falsy values in JavaScript, explain what `NaN` represents, and describe the truth table for `&&` and `||`.',
+    rubricKeywords: ['logical operators', '&&', '||', '!', 'NaN', 'falsy', 'truthy', 'null', 'undefined'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Beginner',
+    title: 'Conditional Statements (if, else if, else)',
+    tutorial:
+      'Conditional statements execute distinct code blocks based on boolean condition checks: `if (condition) { ... } else if (otherCondition) { ... } else { ... }`. Expressions inside `if` statements evaluate truthy or falsy values to determine execution flow.',
+    recognition: {
+      prompt: 'Which block executes when an `if` condition evaluates to `false` and an `else` block is present?',
+      options: ['The `if` block', 'The `else` block', 'Neither block', 'Both blocks'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Write a JavaScript program using `if-else if-else` to check whether a given number is positive, negative, or zero.',
+    rubricKeywords: ['if', 'else if', 'else', 'conditional', 'execution flow', 'boolean expression', 'truthy'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'Iterative Loops & DRY Principle (while & for)',
+    tutorial:
+      'Iterative loops repeat execution without code duplication (DRY: Don`t Repeat Yourself). `while (condition) { ... }` loops as long as a condition remains true (ideal when iteration count is unknown). `for (init; check; step) { ... }` is used when iteration count is known in advance.',
+    recognition: {
+      prompt: 'When should a developer prefer a `for` loop over a `while` loop?',
+      options: [
+        'When the number of iterations is known in advance',
+        'When the loop must run infinitely',
+        'When working with asynchronous code only',
+        'When manipulating HTML DOM nodes',
+      ],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Explain the DRY principle and compare `while` versus `for` loops in JavaScript, providing syntax examples for both.',
+    rubricKeywords: ['while loop', 'for loop', 'dry principle', 'iteration', 'initialization', 'condition check', 'increment'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'Function Declarations, Default Args & Return Values',
+    tutorial:
+      'Functions encapsulate reusable logic: `function name(arg1, arg2) { return result; }`. Arguments act as local variables inside the body. ES6 supports default parameters (`function wish(name="Guest")`). The `return` statement sends a value back to the caller and immediately terminates function execution.',
+    recognition: {
+      prompt: 'What happens to statements written directly after a `return` statement inside a function?',
+      options: [
+        'They are executed before the return value is sent',
+        'They are unreachable and will never execute',
+        'They throw a syntax error at runtime',
+        'They execute asynchronously',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Write a JavaScript function with default parameters that calculates and returns the square of a number or sum of two numbers.',
+    rubricKeywords: ['function', 'arguments', 'default arguments', 'return statement', 'reusability', 'encapsulation'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Advanced',
+    title: 'Higher-Order Functions & setInterval',
+    tutorial:
+      'Higher-order functions accept other functions as arguments or return functions. `setInterval(fn, ms)` repeatedly executes `fn` every specified milliseconds, returning an interval ID that can be stopped using `clearInterval(id)`. Nameless functions passed directly (`function(){ ... }`) are called anonymous functions.',
+    recognition: {
+      prompt: 'Which function is used to stop a running `setInterval()` timer in JavaScript?',
+      options: ['stopInterval()', 'clearInterval()', 'cancelTimer()', 'endInterval()'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain higher-order and anonymous functions in JavaScript using `setInterval` and `clearInterval` as concrete examples.',
+    rubricKeywords: ['higher order function', 'setinterval', 'clearinterval', 'anonymous function', 'milliseconds', 'callback'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Advanced',
+    title: 'Global vs Local Scope & Variable Precedence',
+    tutorial:
+      'Global scope variables are declared outside functions and are accessible everywhere. Local scope variables are declared inside a function (`var x = 10`) and accessible only within that function. If local and global variables share the same name, the local variable takes precedence inside the function.',
+    recognition: {
+      prompt: 'What happens if a function reads a variable name that exists in both its local scope and the global scope?',
+      options: [
+        'The global variable value is used',
+        'The local variable value takes precedence',
+        'A ReferenceError is thrown',
+        'Both values are concatenated',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain JavaScript variable scoping rules (global vs local) and describe what happens when local and global variables share the same name.',
+    rubricKeywords: ['global scope', 'local scope', 'precedence', 'variable scope', 'function scope', 'shadowing'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Beginner',
+    title: 'Arrays & Fundamental Indexing',
+    tutorial:
+      'An array is an ordered 0-indexed collection of elements: `var numbers = [10, 20, 30]`. Elements are accessed or updated via bracket notation (`arr[0]`). Unlike some languages, JavaScript arrays can store heterogeneous elements (`["text", 100, true, null]`) and automatically resize.',
+    recognition: {
+      prompt: 'What is the index of the first element in a JavaScript array?',
+      options: ['0', '1', '-1', 'null'],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Explain how JavaScript array indexing works, detailing how to retrieve, update, and add elements by index.',
+    rubricKeywords: ['array', 'indexing', '0-indexed', 'heterogeneous', 'bracket notation', 'length', 'elements'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'Array Mutation Methods (push, pop, shift, unshift, splice)',
+    tutorial:
+      'JavaScript provides mutating array methods: `push(val)` adds to end; `pop()` removes and returns last element; `unshift(val)` adds to start; `shift()` removes and returns first element; `indexOf(val)` returns first matching index (or -1); `slice(begin, end)` extracts a copy section; `splice(index, count)` removes elements at index.',
+    recognition: {
+      prompt: 'Which array method removes and returns the LAST element of an array?',
+      options: ['shift()', 'pop()', 'unshift()', 'splice()'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Compare `push`/`pop` versus `shift`/`unshift`, and explain how `splice(index, count)` deletes elements from an array.',
+    rubricKeywords: ['push', 'pop', 'shift', 'unshift', 'indexof', 'slice', 'splice', 'array mutation'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'Array Iteration (for, for-of & forEach)',
+    tutorial:
+      'Arrays can be iterated using traditional `for` loops, `while` loops, `for (let item of array)` (convenient element iteration), or `array.forEach(function(item){ ... })`. Unlike `for` loops, `forEach()` moves strictly forward and cannot be terminated early with `break`.',
+    recognition: {
+      prompt: 'Which loop construct directly iterates over the elements of an array without managing index counters manually?',
+      options: ['for (let i = 0; ...)', 'while (i < len)', 'for (let item of array)', 'do-while'],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Compare traditional `for` loops with `for-of` and `forEach()`, detailing direction control and break capabilities.',
+    rubricKeywords: ['for loop', 'for-of', 'foreach', 'array iteration', 'callback', 'index', 'forward direction'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Intermediate',
+    title: 'JavaScript Objects & Property Access',
+    tutorial:
+      'Objects represent key-value pairs: `var obj = { name: "John", age: 30 }`. Properties are accessed via dot notation (`obj.name`) or bracket notation (`obj["name"]`). Keys can be iterated using `for (let key in obj) { console.log(key, obj[key]); }`. Unlike arrays, object keys do not guarantee order.',
+    recognition: {
+      prompt: 'Which syntax correctly accesses the property `hero` on an object `movie` using bracket notation?',
+      options: ['movie[hero]', 'movie["hero"]', 'movie->hero', 'movie.(hero)'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Compare arrays versus objects in JavaScript, detailing key-value structure, access syntax (dot vs bracket), and `for-in` iteration.',
+    rubricKeywords: ['object', 'key-value', 'dot notation', 'bracket notation', 'for-in loop', 'properties'],
+  },
+  {
+    topic: 'JavaScript',
+    level: 'Advanced',
+    title: 'Object Methods & the `this` Keyword',
+    tutorial:
+      'Object properties can hold functions called methods: `var obj = { wish: function() { ... } }`. Inside an object method, the `this` keyword refers to the calling object instance (`this.name`). External named functions can also be assigned as object methods.',
+    recognition: {
+      prompt: 'Inside an object method, what does the `this` keyword refer to?',
+      options: ['The global window object always', 'The object instance on which the method was invoked', 'The function argument list', 'The DOM document'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain how object methods are defined and how `this` keyword provides access to sibling object properties.',
+    rubricKeywords: ['object method', 'this keyword', 'property access', 'context', 'binding', 'method invocation'],
+  },
+
+  // ---------- DOM ----------
+  {
+    topic: 'DOM',
+    level: 'Beginner',
+    title: 'DOM Tree Architecture & Node Types',
+    tutorial:
+      'The Document Object Model (DOM) acts as an interface between JavaScript and HTML/CSS. Browsers construct a tree representation of the HTML document where the root is `document`. Node types include Document, Root element (`<html>`), Elements (`<h1>`, `<p>`), Attributes (`href`), and Text nodes.',
+    recognition: {
+      prompt: 'What is the root node of the DOM tree constructed by web browsers?',
+      options: ['window.body', 'document', 'html.root', 'element.base'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain what the DOM is, how browsers build the DOM tree, and name the main node types (Element, Attribute, Text).',
+    rubricKeywords: ['dom', 'document object model', 'tree architecture', 'root node', 'element node', 'attribute node', 'text node'],
+  },
+  {
+    topic: 'DOM',
+    level: 'Beginner',
+    title: 'Important DOM Properties (document.body, URL, links)',
+    tutorial:
+      'The global `document` object provides direct access properties: `document.URL` (returns current page URL string), `document.body` (returns `<body>` element node), `document.head` (returns `<head>` element node), and `document.links` (returns HTMLCollection of all page `<a>` links).',
+    recognition: {
+      prompt: 'Which DOM property returns an HTMLCollection of all anchor hyperlink tags on the page?',
+      options: ['document.urls', 'document.links', 'document.anchors()', 'document.getLinks()'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'List and describe four essential properties available directly on the global `document` object.',
+    rubricKeywords: ['document.url', 'document.body', 'document.head', 'document.links', 'dom properties', 'htmlcollection'],
+  },
+  {
+    topic: 'DOM',
+    level: 'Intermediate',
+    title: 'Query Methods (getElementById vs querySelector)',
+    tutorial:
+      'DOM element selection methods include legacy query methods (`getElementById("id")`, `getElementsByClassName("class")`, `getElementsByTagName("tag")`) and modern CSS selector methods (`querySelector("selector")` which returns the first matching node, and `querySelectorAll("selector")` which returns a NodeList of all matching nodes).',
+    recognition: {
+      prompt: 'Which method returns the FIRST element matching a CSS selector string like `".highlight"`?',
+      options: ['document.getElementsByClassName("highlight")', 'document.querySelector(".highlight")', 'document.querySelectorAll(".highlight")', 'document.getElementById("highlight")'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Compare `getElementById` vs `querySelector` vs `querySelectorAll`, explaining syntax differences and return types.',
+    rubricKeywords: ['getelementbyid', 'getelementsbyclassname', 'queryselector', 'queryselectorall', 'nodelist', 'css selector'],
+  },
+  {
+    topic: 'DOM',
+    level: 'Intermediate',
+    title: 'Content Manipulation (textContent vs innerHTML)',
+    tutorial:
+      '`textContent` sets or returns plain text inside an element (ignoring HTML tags). `innerHTML` parses and updates raw HTML markup inside an element (e.g. `el.innerHTML = "<strong>text</strong>"`). Passing HTML strings into `textContent` renders literal tags as plain text.',
+    recognition: {
+      prompt: 'Which DOM property should be used to render formatted HTML elements inside a target div?',
+      options: ['textContent', 'innerHTML', 'innerText', 'value'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain the security and rendering differences between `textContent` and `innerHTML` when updating DOM node content.',
+    rubricKeywords: ['textcontent', 'innerhtml', 'plain text', 'html parsing', 'dom content', 'formatting'],
+  },
+  {
+    topic: 'DOM',
+    level: 'Intermediate',
+    title: 'Attribute Methods (getAttribute & setAttribute)',
+    tutorial:
+      'DOM element attributes are manipulated via methods: `element.getAttribute("href")` returns the current string value of an attribute; `element.setAttribute("href", "http://...")` updates an existing attribute or adds a new attribute value. Inline styles are updated via `element.style.color = "red"`.',
+    recognition: {
+      prompt: 'Which DOM method changes the `src` URL attribute of an `<img>` element dynamically?',
+      options: ['img.changeSrc("url")', 'img.setAttribute("src", "url")', 'img.updateAttribute("src", "url")', 'img.src.set("url")'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Write out JavaScript code to select an anchor link and dynamically change its `href` attribute, text content, and inline style color.',
+    rubricKeywords: ['getattribute', 'setattribute', 'attribute manipulation', 'style property', 'href', 'src', 'inline style'],
+  },
+  {
+    topic: 'DOM',
+    level: 'Advanced',
+    title: 'Event Handling with addEventListener',
+    tutorial:
+      '`element.addEventListener(eventType, handlerFunction)` attaches event listeners to DOM elements without modifying HTML attributes. Common mouse events include `"click"`, `"dblclick"`, `"mouseover"` (mouse enters node), and `"mouseout"` (mouse leaves node). Handlers receive event objects and execute interactive logic.',
+    recognition: {
+      prompt: 'Which event type fires when a user moves their mouse pointer onto a DOM element?',
+      options: ['"click"', '"mouseover"', '"mouseout"', '"mouseenter"'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain how `addEventListener` works in Vanilla JS, providing a code example that changes heading text on `mouseover` and restores it on `mouseout`.',
+    rubricKeywords: ['addeventlistener', 'event type', 'click', 'dblclick', 'mouseover', 'mouseout', 'event handler'],
+  },
+
+  // ---------- jQuery ----------
+  {
+    topic: 'jQuery',
+    level: 'Beginner',
+    title: 'jQuery Setup & $ Selector Syntax',
+    tutorial:
+      'jQuery is a fast, lightweight JS library ("Write less, do more") offering cross-browser DOM selection, animations, and event handling. Included via CDN or local file. The `$` symbol acts as a shorthand wrapper for `querySelectorAll`: `$("h1")` selects all `<h1>` tags, `$("#id")` selects by ID, and `$(".class")` selects by class.',
+    recognition: {
+      prompt: 'In jQuery, what is the `$` symbol equivalent to in Vanilla JavaScript?',
+      options: ['document.getElementById()', 'document.querySelectorAll()', 'console.log()', 'window.onload'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain the purpose of jQuery, how to include it via CDN, and how the `$` selector function works.',
+    rubricKeywords: ['jquery', '$ symbol', 'write less do more', 'queryselectorall', 'cdn', 'selectors', 'cross browser'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Intermediate',
+    title: 'Target Filtering (:first, :last, :nth-of-type)',
+    tutorial:
+      'jQuery extends selectors with positioning pseudo-filters: `$("p:first")` or `$("p").first()` selects the first paragraph; `$("p:last")` selects the last paragraph; `$("li:nth-of-type(2)")` selects the 2nd `<li>` element.',
+    recognition: {
+      prompt: 'Which jQuery expression selects only the first matching `<li>` tag on the page?',
+      options: ['$("li:first")', '$("li[0]")', '$("li").top()', '$("li:initial")'],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Write jQuery selectors to target: (1) the first h1 tag, (2) the last button on page, (3) every even numbered li tag.',
+    rubricKeywords: ['first', 'last', 'nth-of-type', 'pseudo filter', 'jquery selection', 'target filtering'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Intermediate',
+    title: 'CSS Manipulation with css() Method',
+    tutorial:
+      'The `.css()` method gets or sets CSS properties on matched elements. Single property: `$("h1").css("color", "red")`. Multiple properties pass an object: `$("h1").css({ color: "white", background: "blue", border: "1px solid red" })`. Inside jQuery event handlers, `$(this)` wraps the target element.',
+    recognition: {
+      prompt: 'How do you set multiple CSS properties simultaneously on an element using jQuery `.css()`?',
+      options: [
+        'Pass multiple string parameters sequentially',
+        'Pass a JavaScript object containing key-value property pairs',
+        'Call .css() once for each property name',
+        'Pass a single CSS rule string like "color: red; bg: blue;"',
+      ],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain how the `.css()` method works in jQuery for single versus multiple style property assignments, including the role of `$(this)`.',
+    rubricKeywords: ['css method', 'single property', 'multiple properties', 'style object', '$(this)', 'jquery styling'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Intermediate',
+    title: 'Content & Form Methods (text, html, attr, val)',
+    tutorial:
+      'jQuery methods follow getter/setter paradigms: `.text()` gets/sets plain text; `.html()` gets/sets HTML content; `.attr("src")` gets attribute while `.attr("src", "new.jpg")` sets attribute; `.val()` gets/sets form input/select values (e.g. `$("input").val()` retrieves entered text).',
+    recognition: {
+      prompt: 'Which jQuery method is used to get or set the value of form inputs and select dropdowns?',
+      options: ['.text()', '.html()', '.val()', '.attr()'],
+      correctIndex: 2,
+    },
+    recallPrompt:
+      'Explain the getter/setter behavior of `.text()`, `.html()`, `.attr()`, and `.val()` in jQuery.',
+    rubricKeywords: ['text()', 'html()', 'attr()', 'val()', 'getter setter', 'form input', 'attribute'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Intermediate',
+    title: 'Class Manipulation (addClass, removeClass, toggleClass)',
+    tutorial:
+      'jQuery simplifies class switching on DOM elements: `.addClass("highlight")` adds class; `.removeClass("highlight")` removes class; `.toggleClass("highlight")` adds the class if absent, or removes it if already set.',
+    recognition: {
+      prompt: 'Which jQuery method automatically adds a class if it is missing, or removes it if it is already present?',
+      options: ['.switchClass()', '.toggleClass()', '.changeClass()', '.modifyClass()'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Describe how `.addClass()`, `.removeClass()`, and `.toggleClass()` manage element classes in jQuery.',
+    rubricKeywords: ['addclass', 'removeclass', 'toggleclass', 'class manipulation', 'jquery classes'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Advanced',
+    title: 'Event Binding with click(), keypress() & on()',
+    tutorial:
+      'jQuery binds event listeners via shorthand methods like `$("h1").click(fn)` and `$("input").keypress(fn)` (tracking keycodes via `event.which`). The versatile `.on()` method binds any event type: `$("h1").on("mouseover", fn)`. Inside handler callbacks, `$(this)` references the triggering element.',
+    recognition: {
+      prompt: 'In a jQuery `keypress` event handler, which event property contains the ASCII keycode of the pressed key?',
+      options: ['event.keyCode', 'event.which', 'event.keyChar', 'event.code'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Compare `click()`, `keypress()`, and `.on()` in jQuery, explaining keycode tracking with `event.which`.',
+    rubricKeywords: ['click()', 'keypress()', 'on()', 'event.which', 'keycode', '$(this)', 'event binding'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Advanced',
+    title: 'Fading Effects (fadeOut, fadeIn, fadeToggle)',
+    tutorial:
+      'jQuery provides built-in fading animation methods: `.fadeOut(speed, callback)` fades element to transparent; `.fadeIn(speed)` restores visibility; `.fadeToggle(speed)` toggles fade state. Speed is specified in milliseconds (e.g. 2000ms = 2s). Optional completion callback functions run after animation finishes.',
+    recognition: {
+      prompt: 'What happens when `.fadeToggle(1000)` is called on a visible jQuery element?',
+      options: ['It immediately deletes the element', 'It smoothly fades out to transparent over 1 second', 'It slides the element up', 'Nothing happens'],
+      correctIndex: 1,
+    },
+    recallPrompt:
+      'Explain how `.fadeOut()`, `.fadeIn()`, and `.fadeToggle()` work, detailing duration parameters and completion callbacks.',
+    rubricKeywords: ['fadeout', 'fadein', 'fadetoggle', 'milliseconds', 'completion callback', 'fading effects', 'animation'],
+  },
+  {
+    topic: 'jQuery',
+    level: 'Advanced',
+    title: 'Sliding Effects (slideUp, slideDown, slideToggle)',
+    tutorial:
+      'Sliding animation methods reveal or hide elements with vertical motion: `.slideUp(speed)` collapses height to 0; `.slideDown(speed)` expands element downward; `.slideToggle(speed)` toggles slide state. Optional callback functions execute upon slide completion.',
+    recognition: {
+      prompt: 'Which jQuery method hides matched elements using a vertical sliding motion?',
+      options: ['.slideUp()', '.slideDown()', '.slideToggle()', '.fadeOut()'],
+      correctIndex: 0,
+    },
+    recallPrompt:
+      'Compare sliding effects (`slideUp`, `slideDown`, `slideToggle`) with fading effects in jQuery.',
+    rubricKeywords: ['slideup', 'slidedown', 'slidetoggle', 'sliding effects', 'vertical animation', 'duration'],
+  },
   {
     topic: 'Java',
     level: 'Intermediate',

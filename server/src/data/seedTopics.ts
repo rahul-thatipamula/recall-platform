@@ -4,10 +4,88 @@ type SeedTopic = Omit<TopicDoc, '_id'>;
 
 export const seedTopics: SeedTopic[] = [
   {
+    key: 'html',
+    title: 'HTML',
+    description: 'Document structure, semantic tags, forms, tables, accessibility, and validation — the fundamental markup for every web application.',
+    order: 1,
+    isWhiteboard: false,
+    roadmap: [
+      { stage: 'Structure & Metadata', description: 'HTML document boilerplate, head tags, title, meta attributes, and comments.' },
+      { stage: 'Elements & Text Formatting', description: 'Headings, paragraphs, semantic emphasis (strong/em), lists (ol/ul/nested), and div vs span.' },
+      { stage: 'Forms & Interactive Controls', description: 'Inputs, labels, textareas, dropdown selects, buttons, and HTML5 native form validations.' },
+      { stage: 'Media, Links & Tables', description: 'Images with alt attributes, anchor links, and structured table layouts (thead, tr, th, td).' },
+    ],
+  },
+  {
+    key: 'css',
+    title: 'CSS',
+    description: 'Selectors, specificity, the box model, typography, backgrounds, and layout techniques to design responsive web interfaces.',
+    order: 2,
+    isWhiteboard: false,
+    roadmap: [
+      { stage: 'Inclusion & Syntax', description: 'Inline, internal, and external stylesheets, syntax structure, and CSS comments.' },
+      { stage: 'Selectors & Specificity', description: 'Element, ID, Class, attribute, pseudo-classes, descendant/adjacent selectors, inheritance, and specificity.' },
+      { stage: 'Box Model & Colors', description: 'Content, padding, border, margin, border shorthand, and color representations (Hex, RGB, RGBA).' },
+      { stage: 'Typography & Layout', description: 'Font families, Google Fonts, em units, line-height, text alignment, float, and centering.' },
+    ],
+  },
+  {
+    key: 'bootstrap',
+    title: 'Bootstrap',
+    description: 'Responsive 12-column grid system, pre-styled components, navbar navigation, form classes, and icon integration for fast UI development.',
+    order: 3,
+    isWhiteboard: false,
+    roadmap: [
+      { stage: 'Framework Setup & CDN', description: 'Connecting Bootstrap via CDN or local download, container vs container-fluid.' },
+      { stage: 'Components & Forms', description: 'Buttons, button states, jumbotron, form-group, form-control, and inline forms.' },
+      { stage: 'Navbars & Icons', description: 'Navbar branding, responsive hamburger collapse, Glyphicons, and FontAwesome icons.' },
+      { stage: 'Grid System', description: '12-column grid layout, screen size tiers (lg, md, sm, xs), and nested grids.' },
+    ],
+  },
+  {
+    key: 'javascript',
+    title: 'JavaScript',
+    description: 'Core language primitives, control flow, functions, scope rules, array algorithms, objects, and higher-order execution.',
+    order: 4,
+    isWhiteboard: false,
+    roadmap: [
+      { stage: 'Language Primitives', description: 'Developer console, 5 primitive data types, typeof operator, and variable declarations.' },
+      { stage: 'Control Flow & Logic', description: 'Strict equality (=== vs ==), NaN, conditional statements, while/for loops, and DRY principles.' },
+      { stage: 'Functions & Scopes', description: 'Function declarations, arguments, default parameters, return values, global vs local scope, and setInterval.' },
+      { stage: 'Data Structures & Algorithms', description: 'Arrays, array methods (push, pop, shift, unshift, slice, splice), forEach, objects, and method binding.' },
+    ],
+  },
+  {
+    key: 'dom',
+    title: 'DOM',
+    description: 'Traversing the DOM tree, selecting nodes, modifying HTML content/attributes, and binding event listeners for dynamic interactivity.',
+    order: 5,
+    isWhiteboard: false,
+    roadmap: [
+      { stage: 'DOM Architecture & Nodes', description: 'Understanding the DOM tree (Document, Root, Elements, Attributes, Text nodes).' },
+      { stage: 'Querying Elements', description: 'getElementById, getElementsByClassName, getElementsByTagName, querySelector, and querySelectorAll.' },
+      { stage: 'Content & Attribute Manipulation', description: 'textContent vs innerHTML, getAttribute, setAttribute, and inline style modifications.' },
+      { stage: 'Event Handling', description: 'Binding click, dblclick, mouseover, and mouseout event listeners with addEventListener.' },
+    ],
+  },
+  {
+    key: 'jquery',
+    title: 'jQuery',
+    description: 'Write less, do more — selecting DOM nodes with $, CSS manipulation, getter/setter methods, event binding, and built-in animations.',
+    order: 6,
+    isWhiteboard: false,
+    roadmap: [
+      { stage: 'Library Setup & Selectors', description: 'jQuery advantages/limitations, $ selector syntax, and target filtering (:first, :last, :nth-of-type).' },
+      { stage: 'DOM & CSS Manipulation', description: 'Modifying styles with css(), text(), html(), attr(), val(), addClass(), removeClass(), and toggleClass().' },
+      { stage: 'Event Handling', description: 'Binding click(), keypress(), event.which keycode tracking, and on() multi-event handlers.' },
+      { stage: 'Animation & Effects', description: 'Fading effects (fadeOut, fadeIn, fadeToggle) and sliding effects (slideUp, slideDown, slideToggle).' },
+    ],
+  },
+  {
     key: 'java',
     title: 'Java',
     description: 'Core language internals — memory, collections, concurrency, and exceptions — the foundation most backend interviews probe first.',
-    order: 1,
+    order: 7,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Language fundamentals', description: 'Exceptions, collections, and how the type system shapes error handling.' },
@@ -19,7 +97,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'spring-boot',
     title: 'Spring Boot',
     description: 'How the container wires your application together — bean lifecycle, DI, transactions, and the auto-configuration magic underneath.',
-    order: 2,
+    order: 8,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Container basics', description: 'Dependency injection styles and how a bean comes to life.' },
@@ -31,7 +109,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'sql',
     title: 'SQL',
     description: 'Indexing, joins, and transaction isolation — the mechanics that separate a query that scales from one that doesn\'t.',
-    order: 3,
+    order: 9,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Reading & writing efficiently', description: 'What an index actually does and what it costs you.' },
@@ -43,7 +121,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'redis',
     title: 'Redis',
     description: 'In-memory data structures, caching patterns, and the durability trade-offs behind a cache that\'s also sometimes a database.',
-    order: 4,
+    order: 10,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Data structures', description: 'Picking the right structure instead of reimplementing it in application code.' },
@@ -55,7 +133,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'kafka',
     title: 'Kafka',
     description: 'Partitioned logs, consumer groups, and delivery guarantees — the vocabulary every distributed-systems interview assumes you have.',
-    order: 5,
+    order: 11,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Storage model', description: 'Topics, partitions, and what ordering guarantees do and don\'t hold.' },
@@ -67,7 +145,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'aws',
     title: 'AWS',
     description: 'Compute, load balancing, and storage trade-offs — enough cloud vocabulary to reason about a system design out loud.',
-    order: 6,
+    order: 12,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Compute choices', description: 'EC2 vs Lambda and matching workload shape to billing model.' },
@@ -79,7 +157,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'behavioral',
     title: 'Behavioral',
     description: 'Structuring answers about conflict, trade-offs, and past decisions so they read as concrete evidence, not generic filler.',
-    order: 7,
+    order: 13,
     isWhiteboard: false,
     roadmap: [
       { stage: 'Structure', description: 'The STAR method as scaffolding for a concrete, non-rambling answer.' },
@@ -91,7 +169,7 @@ export const seedTopics: SeedTopic[] = [
     key: 'system-design',
     title: 'System Design',
     description: 'Whiteboard real architectures from memory — place components, wire them together, and explain the trade-offs behind every box.',
-    order: 8,
+    order: 14,
     isWhiteboard: true,
     roadmap: [
       { stage: 'Requirements', description: 'Clarify scale, read/write ratio, and consistency needs before drawing anything.' },
