@@ -1,57 +1,76 @@
-# Recall — for new builders
+# Recall — an introduction for new builders
 
-## What this is
+## The problem, in plain terms
 
-Recall tests whether an engineer can actually **produce** technical knowledge from memory, not
-just recognize it when they see it. AI tools have made it easy to understand an explanation the
-moment you read it — and much easier to quietly forget it can't be reproduced under interview
-pressure. Every concept on the platform is tested twice: a multiple-choice **recognition** check,
-and a free-response **recall** prompt graded against a rubric. The gap between those two scores is
-the actual product — it's a more honest signal of interview readiness than a quiz percentage.
+It's never been easier to *feel* like you understand something. You read an AI-generated
+explanation, it makes sense, you move on. But there's a big difference between recognizing a good
+explanation when you read it and being able to produce that same explanation yourself, from
+memory, under pressure — like in a live interview.
 
-## Who it's for
+Psychologists call this the gap between **recognition** (understanding something when it's in
+front of you) and **recall** (retrieving it from memory with nothing in front of you). Recall the
+platform is built entirely around measuring and closing that gap for software engineers.
 
-Backend engineers prepping for interviews, across Java, Spring Boot, SQL, Redis, Kafka, AWS,
-Behavioral, and System Design.
+## What the product actually does
 
-## How someone uses it
+For every topic a user studies, they're tested twice, back to back:
 
-1. Pick a course from the sidebar.
-2. **Learning** tab: a short tutorial + roadmap per concept, to (re)build recognition.
-3. **Testing** tab: recognition MCQ → recall free-response → graded result + gap.
-4. **System Design** is different — instead of concepts, it's a full whiteboard (tldraw) per
-   scenario, with a component palette, a one-click pre-wired starter layout, and a temporary
-   coverage-based "Evaluate" button.
+1. **A recognition check** — a multiple-choice question. This confirms they understand the
+   concept when they see it.
+2. **A recall prompt** — a free-text box with no hints, asking them to explain the concept in
+   their own words, the way they'd have to in a real interview.
 
-## Shape of the codebase
+Both are scored. The interesting number isn't either score alone — it's the **gap between them**.
+Someone who aces the multiple-choice question but writes a thin, vague paragraph in the free-text
+box has found exactly the kind of weak spot that shows up in interviews and nowhere else. That gap
+is the whole point of the product; everything else exists to produce and act on it.
 
-Two apps, no shared package:
+## What a user sees, end to end
 
-```
-client/   Vite + React + TypeScript SPA
-server/   Express + Mongoose API, MongoDB
-```
+- A **course catalog**: right now, Java, Spring Boot, SQL, Redis, Kafka, AWS, Behavioral
+  interview prep, and System Design.
+- Inside a course, two modes:
+  - **Learning** — short explanations and a roadmap, for someone building up understanding.
+  - **Testing** — the recognition-then-recall flow described above, with results tracked over
+    time so a person can see their own gap shrinking (or not) topic by topic.
+- Everything is tagged **Beginner / Intermediate / Advanced**, so a user can focus on the right
+  difficulty instead of wading through everything at once.
+- **System Design** works differently from the rest, because system design isn't something you
+  test with multiple choice — it's something you *draw*. Instead of a quiz, users get a real
+  whiteboard where they sketch out an architecture for a prompt (e.g. "design a chat app"), drop
+  in labeled boxes for things like load balancers and databases, connect them, and get a rough
+  automatic read on how complete their design is.
 
-Start here to get oriented:
-- `client/src/api.ts` — every request the frontend can make, in one file.
-- `server/src/models/` — `Topic`, `Concept`, `Attempt`, `SystemDesignScenario`, `SystemDesignAttempt`.
-- `server/src/data/` — all seed content (courses, concepts, scenarios) as plain TS arrays.
-- `server/src/grading/grader.ts` — the grading logic sits behind a `RecallGrader` interface on
-  purpose. The active grader is a keyword-coverage heuristic; it's built to be swapped for a real
-  LLM without touching any route.
+## How this is meant to grow over time
 
-Full setup steps and the API reference live in [README.md](README.md).
+The product isn't built as eight fixed, hand-coded courses — it's built as **one system that
+happens to have eight courses loaded into it today**. Every course, every question, every roadmap
+is just content sitting in a data file, not something wired into the app's logic. That distinction
+matters a lot for how the team should think about growth:
 
-## What's real vs. stubbed right now
+- **Adding a new course** (say, Python, DevOps, or Frontend interviews) means writing new content
+  in the same shape the existing courses use — no rebuilding of the learning flow, the testing
+  flow, or the dashboard. The scaffolding is already generic.
+- **Adding new difficulty depth** to an existing course is the same story: it's additional content
+  at a given level, not a new feature.
+- **The grading itself is deliberately swappable.** Today, both the recall-answer grading and the
+  system-design whiteboard grading work off a simple, cheap keyword-matching check — good enough
+  to prove the product works, not the final word on quality. Both were built so that a smarter
+  grader (for example, one that uses an AI model to actually read and judge free-text answers,
+  rather than just checking for expected words) can be dropped in later without changing anything
+  a user sees or touches. Improving grading quality is a swap, not a rebuild.
+- **New practice formats fit the same model.** Anything that can be framed as "show understanding,
+  then produce it from memory, then measure the gap" — mock interviews, timed drills, pair
+  exercises — extends the same core idea rather than requiring a new product concept.
 
-Real: the recognition/recall/gap model, the course structure, level filtering, the whiteboard
-canvas and autosave. **Stubbed on purpose**: both graders (concept recall and system-design
-coverage) are heuristic keyword-matchers standing in for real evaluation, whiteboard state only
-persists to the browser's `localStorage`, and there's no auth — everything is single-user.
+The short version: the hard part that's already built is the *idea* (recognition vs. recall, and
+measuring the gap) and the *shape* the content lives in. Growth from here is mostly about adding
+more content and swapping in better grading — not rethinking how the product works.
 
-## Good first contributions
+## Where to go next
 
-- Add more concepts or system-design scenarios in `server/src/data/` — same shape as what's there.
-- Swap `HeuristicRecallGrader` for a real LLM call behind the existing `RecallGrader` interface.
-- Persist whiteboard snapshots server-side instead of `localStorage`.
-- Anything in the "What's stubbed / not built" section of the README.
+- Product/business context and the full feature list: this document plus the top of
+  [README.md](README.md).
+- Technical setup, architecture, and the API reference: [README.md](README.md).
+- If you're picking up engineering work, README.md also lists what's genuinely finished versus
+  intentionally simplified for now, and a short list of good first contributions.
