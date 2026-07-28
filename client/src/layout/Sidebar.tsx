@@ -14,6 +14,17 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
     api.getTopics().then(setTopics);
   }, []);
 
+  const frontendKeys = ['html', 'css', 'bootstrap', 'javascript', 'dom', 'jquery'];
+  const backendKeys = ['java', 'spring-boot', 'sql', 'redis', 'kafka', 'aws'];
+  const practiceKeys = ['behavioral', 'system-design'];
+
+  const frontendTopics = topics.filter((t) => frontendKeys.includes(t.key));
+  const backendTopics = topics.filter((t) => backendKeys.includes(t.key));
+  const practiceTopics = topics.filter((t) => practiceKeys.includes(t.key));
+  const otherTopics = topics.filter(
+    (t) => !frontendKeys.includes(t.key) && !backendKeys.includes(t.key) && !practiceKeys.includes(t.key)
+  );
+
   return (
     <aside className={collapsed ? 'sidebar collapsed' : 'sidebar'} aria-hidden={collapsed}>
       <div className="sidebar-inner">
@@ -23,18 +34,55 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             ✕
           </button>
         </div>
-        <ul className="sidebar-nav">
-          {topics.map((topic) => (
-            <li key={topic._id}>
-              <NavLink to={`/topic/${topic.key}`} className={({ isActive }) => (isActive ? 'active' : '')}>
-                <span className="nav-title">{topic.title}</span>
-                {topic.isWhiteboard && <span className="pill">board</span>}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+
+        {frontendTopics.length > 0 && (
+          <div className="sidebar-section">
+            <div className="sidebar-section-title">Web & UI</div>
+            <ul className="sidebar-nav">
+              {frontendTopics.map((topic) => (
+                <li key={topic._id}>
+                  <NavLink to={`/topic/${topic.key}`} className={({ isActive }) => (isActive ? 'active' : '')}>
+                    <span className="nav-title">{topic.title}</span>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {backendTopics.length > 0 && (
+          <div className="sidebar-section">
+            <div className="sidebar-section-title">Backend & Cloud</div>
+            <ul className="sidebar-nav">
+              {backendTopics.map((topic) => (
+                <li key={topic._id}>
+                  <NavLink to={`/topic/${topic.key}`} className={({ isActive }) => (isActive ? 'active' : '')}>
+                    <span className="nav-title">{topic.title}</span>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {(practiceTopics.length > 0 || otherTopics.length > 0) && (
+          <div className="sidebar-section">
+            <div className="sidebar-section-title">Practice & Design</div>
+            <ul className="sidebar-nav">
+              {[...practiceTopics, ...otherTopics].map((topic) => (
+                <li key={topic._id}>
+                  <NavLink to={`/topic/${topic.key}`} className={({ isActive }) => (isActive ? 'active' : '')}>
+                    <span className="nav-title">{topic.title}</span>
+                    {topic.isWhiteboard && <span className="pill">board</span>}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </aside>
   );
 }
+
 

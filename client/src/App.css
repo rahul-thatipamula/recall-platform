@@ -46,6 +46,19 @@
   letter-spacing: -0.01em;
 }
 
+.sidebar-section {
+  margin-bottom: 1.1rem;
+}
+
+.sidebar-section-title {
+  padding: 0 1.25rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
 .sidebar ul.sidebar-nav {
   list-style: none;
   margin: 0;
