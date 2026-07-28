@@ -1,28 +1,27 @@
 :root {
-  --bg: #faf9f5;
-  --bg-raised: #ffffff;
-  --bg-sunken: #f0eee6;
-  --text: #40392f;
-  --text-h: #191008;
-  --text-muted: #8a8175;
-  --border: #e3ddd0;
-  --accent: #cc785c;
-  --accent-hover: #b8664c;
-  --accent-contrast: #fff9f5;
-  --accent-bg: rgba(204, 120, 92, 0.1);
-  --accent-border: rgba(204, 120, 92, 0.4);
-  --warning: #b8863a;
-  --warning-bg: rgba(184, 134, 58, 0.12);
-  --good: #4d8a63;
-  --bad: #b8493f;
-  --shadow: rgba(25, 16, 8, 0.06) 0 4px 16px -4px;
+  --bg: #0f0f0f;
+  --bg-raised: #1a1a1a;
+  --bg-sunken: #171717;
+  --text: #c9c9c9;
+  --text-h: #ffffff;
+  --text-muted: #8a8a8a;
+  --border: #303030;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-contrast: #ffffff;
+  --accent-bg: rgba(59, 130, 246, 0.12);
+  --accent-border: rgba(59, 130, 246, 0.4);
+  --warning: #eab308;
+  --warning-bg: rgba(234, 179, 8, 0.12);
+  --good: #22c55e;
+  --bad: #ef4444;
+  --shadow: rgba(0, 0, 0, 0.4) 0 4px 16px -4px;
 
-  --sans: 'Söhne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --serif: 'Tiempos', Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, 'SF Mono', Consolas, monospace;
 
   font: 16px/1.5 var(--sans);
-  color-scheme: light dark;
+  color-scheme: dark light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -31,25 +30,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --bg: #191510;
-    --bg-raised: #221d16;
-    --bg-sunken: #14110c;
-    --text: #d6cfc2;
-    --text-h: #f5f1e8;
-    --text-muted: #948a7a;
-    --border: #33291f;
-    --accent: #e0916f;
-    --accent-hover: #eba687;
-    --accent-contrast: #1c1108;
-    --accent-bg: rgba(224, 145, 111, 0.14);
-    --accent-border: rgba(224, 145, 111, 0.4);
-    --warning: #d1a55a;
-    --warning-bg: rgba(209, 165, 90, 0.14);
-    --good: #6bb987;
-    --bad: #d97a6f;
-    --shadow: rgba(0, 0, 0, 0.35) 0 4px 16px -4px;
+    --bg: #ffffff;
+    --bg-raised: #ffffff;
+    --bg-sunken: #f7f7f7;
+    --text: #262626;
+    --text-h: #0a0a0a;
+    --text-muted: #737373;
+    --border: #e0e0e0;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-contrast: #ffffff;
+    --accent-bg: rgba(37, 99, 235, 0.08);
+    --accent-border: rgba(37, 99, 235, 0.35);
+    --warning: #b45309;
+    --warning-bg: rgba(180, 83, 9, 0.1);
+    --good: #16a34a;
+    --bad: #dc2626;
+    --shadow: rgba(0, 0, 0, 0.08) 0 4px 16px -4px;
   }
 }
 
@@ -66,8 +65,8 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: var(--serif);
-  font-weight: 500;
+  font-family: var(--sans);
+  font-weight: 600;
   color: var(--text-h);
   letter-spacing: -0.01em;
 }

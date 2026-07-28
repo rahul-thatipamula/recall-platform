@@ -28,8 +28,8 @@ before assuming a feature is production-ready.
   component palette (Load Balancer, Cache, DB, Queue, CDN, …), a one-click "insert connected
   starter layout" that drops the scenario's expected components pre-wired with arrows, and a
   temporary coverage-based evaluate button.
-- Autosaving whiteboard (to `localStorage`, per scenario), collapsible sidebar nav, and a warm,
-  serif-headed visual theme.
+- Autosaving whiteboard (to `localStorage`, per scenario), collapsible sidebar nav, and a
+  black/blue visual theme with LeetCode-style difficulty badges (green/yellow/red by level).
 
 ## Architecture
 

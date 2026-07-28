@@ -28,9 +28,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 1.2rem 1.5rem 1.5rem;
-  font-family: var(--serif);
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .sidebar-brand a {
@@ -235,10 +234,30 @@ h1 {
 
 .level-badge {
   font-size: 0.7rem;
+  font-weight: 600;
   padding: 0.1rem 0.5rem;
   border-radius: 999px;
   border: 1px solid var(--border);
   color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.level-badge-beginner {
+  color: var(--good);
+  border-color: var(--good);
+  background: color-mix(in srgb, var(--good) 12%, transparent);
+}
+
+.level-badge-intermediate {
+  color: var(--warning);
+  border-color: var(--warning);
+  background: var(--warning-bg);
+}
+
+.level-badge-advanced {
+  color: var(--bad);
+  border-color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 12%, transparent);
 }
 
 .concept-list, .scenario-list {

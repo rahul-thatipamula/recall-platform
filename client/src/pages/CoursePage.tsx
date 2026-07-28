@@ -5,6 +5,10 @@ import { api, type Topic, type Concept, type DashboardRow, type Level, type Syst
 type Tab = 'learning' | 'testing';
 const LEVELS: Level[] = ['Beginner', 'Intermediate', 'Advanced'];
 
+function levelBadgeClass(level: Level) {
+  return `level-badge level-badge-${level.toLowerCase()}`;
+}
+
 export function CoursePage() {
   const { topicKey } = useParams<{ topicKey: string }>();
   const [topic, setTopic] = useState<Topic | null>(null);
@@ -83,7 +87,7 @@ function StandardCourse({ topic }: { topic: Topic }) {
             <article key={concept._id} className="tutorial-card">
               <div className="tutorial-card-head">
                 <h3>{concept.title}</h3>
-                <span className="level-badge">{concept.level}</span>
+                <span className={levelBadgeClass(concept.level)}>{concept.level}</span>
               </div>
               <p>{concept.tutorial}</p>
               <Link to={`/topic/${topic.key}/assess/${concept._id}`}>Test yourself on this →</Link>
@@ -111,7 +115,7 @@ function StandardCourse({ topic }: { topic: Topic }) {
               return (
                 <tr key={concept._id}>
                   <td>{concept.title}</td>
-                  <td>{concept.level}</td>
+                  <td><span className={levelBadgeClass(concept.level)}>{concept.level}</span></td>
                   <td>{row?.attemptsCount ?? 0}</td>
                   <td>{row?.recognitionRate == null ? '—' : `${row.recognitionRate}%`}</td>
                   <td>{row?.avgRecallScore == null ? '—' : `${row.avgRecallScore}%`}</td>
@@ -158,7 +162,7 @@ function WhiteboardCourse({ topic }: { topic: Topic }) {
           <article key={scenario._id} className="tutorial-card">
             <div className="tutorial-card-head">
               <h3>{scenario.title}</h3>
-              <span className="level-badge">{scenario.level}</span>
+              <span className={levelBadgeClass(scenario.level)}>{scenario.level}</span>
             </div>
             <p>{scenario.prompt}</p>
             <Link to={`/topic/${topic.key}/board/${scenario._id}`}>Open whiteboard →</Link>
