@@ -17,7 +17,7 @@ before assuming a feature is production-ready.
 ## Features
 
 - **Course catalog** — Java, Spring Boot, SQL, Redis, Kafka, AWS, Behavioral, and System Design,
-  browsable from a w3schools-style sidebar.
+  browsable from a sidebar course list.
 - **Learning vs Testing per course** — a short tutorial + roadmap per concept (Learning), and the
   recognition + recall assessment flow (Testing).
 - **Levels** — every concept and system design scenario is tagged Beginner / Intermediate /
